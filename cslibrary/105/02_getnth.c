@@ -7,8 +7,6 @@ int GetNth(struct node* head, int index) {
     struct node* current = head;
     int count = 0;
 
-    if (index < 0) return -1;
-    if (current == NULL) return -1;
     for (current = head; current != NULL; current = current->next)
     {
         if (count == index) {
@@ -16,8 +14,7 @@ int GetNth(struct node* head, int index) {
         }
         count++;
     }
-    // if index > than length
-    return -1;
+    assert(0);
 }
 
 int main()
