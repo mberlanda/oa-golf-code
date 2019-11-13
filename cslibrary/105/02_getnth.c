@@ -1,4 +1,5 @@
 #include "node.h"
+#include <assert.h>
 
 // Given a list and an index, return the data
 // in the nth node of the list. The nodes are numbered from 0.
@@ -20,9 +21,10 @@ int GetNth(struct node* head, int index) {
 int main()
 {
     struct node* myList = BuildOneTwoThree();
-    if (GetNth(myList, 1) == 2)
-    {
-        return 0;
-    }
-    return 1;
+    int result = GetNth(myList, 1);
+
+    printf("Count GetNth: %d\n", result);
+    assert(result == 2);
+
+    return 0;
 }

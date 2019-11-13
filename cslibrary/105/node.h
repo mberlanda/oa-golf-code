@@ -7,6 +7,7 @@ struct node
   struct node* next;
 };
 
+struct node *BuildOneTwoThree();
 struct node* BuildOneTwoThree()
 {
   struct node* head = NULL;
@@ -27,8 +28,9 @@ struct node* BuildOneTwoThree()
   third->next = NULL;
 
   return head;
-};
+}
 
+void PrintValues(struct node *head);
 void PrintValues(struct node *head)
 {
   struct node *current = head;
@@ -45,4 +47,14 @@ void PrintValues(struct node *head)
   {
     printf("\n");
   }
-};
+}
+
+void Push(struct node **headRef, int data);
+void Push(struct node **headRef, int data)
+{
+  struct node *newNode = malloc(sizeof(struct node));
+
+  newNode->data = data;
+  newNode->next = *headRef;
+  *headRef = newNode;
+}
