@@ -7,7 +7,7 @@ struct node
   struct node* next;
 };
 
-struct node *BuildOneTwoThree();
+struct node* BuildOneTwoThree();
 struct node* BuildOneTwoThree()
 {
   struct node* head = NULL;
@@ -30,10 +30,10 @@ struct node* BuildOneTwoThree()
   return head;
 }
 
-void PrintValues(struct node *head);
-void PrintValues(struct node *head)
+void PrintValues(struct node* head);
+void PrintValues(struct node* head)
 {
-  struct node *current = head;
+  struct node* current = head;
   int count = 0;
 
   while (current != NULL)
@@ -49,12 +49,27 @@ void PrintValues(struct node *head)
   }
 }
 
-void Push(struct node **headRef, int data);
-void Push(struct node **headRef, int data)
+void Push(struct node** headRef, int data);
+void Push(struct node** headRef, int data)
 {
-  struct node *newNode = malloc(sizeof(struct node));
+  struct node* newNode = malloc(sizeof(struct node));
 
   newNode->data = data;
   newNode->next = *headRef;
   *headRef = newNode;
+}
+
+int Length(struct node *head);
+int Length(struct node* head)
+{
+  struct node* current = head;
+  int count = 0;
+
+  while (current != NULL)
+  {
+    count++;
+    current = current->next;
+  }
+
+  return count;
 }
