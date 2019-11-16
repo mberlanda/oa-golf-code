@@ -55,7 +55,7 @@ void testSize()
   assert(size(build123c()) == 3);
 }
 
-// maxDepth()
+// 3. maxDepth()
 int max(int a, int b)
 {
   if (a > b) return a;
@@ -81,9 +81,48 @@ void testMaxDepth()
   assert(maxDepth(n) == 3);
 }
 
+/*
+  4. minValue()
+  Given a non-empty binary search tree,
+  return the minimum data value found in that tree.
+*/
+
+int minValue(Node node){
+  assert(node != NULL);
+  Node current = node;
+
+  while(current->left != NULL){
+    current = current->left;
+  }
+
+  return current->data;
+}
+
+int minValueRec(Node node)
+{
+  if (node->left != NULL)
+    return minValueRec(node->left);
+  return node->data;
+}
+
+void testMinValue()
+{
+  Node n = build123a();
+  assert(minValue(n) == 1);
+  assert(minValueRec(n) == 1);
+  insert(n, 5);
+  assert(minValue(n) == 1);
+  assert(minValueRec(n) == 1);
+  insert(n, -3);
+  insert(n, 0);
+  assert(minValue(n) == -3);
+  assert(minValueRec(n) == -3);
+}
+
 int main()
 {
   testSize();
   testMaxDepth();
+  testMinValue();
   return 0;
 }
