@@ -139,7 +139,7 @@ void printTree(Node node){
 }
 
 /*
-  5. printPostorder()
+  6. printPostorder()
     The tree...
         4
        / \
@@ -169,11 +169,29 @@ void testPrints()
   printPostorder(n);
 }
 
+// 7. hasPathSum()
+int hasPathSum(Node node, int sum){
+  if (node == NULL) return sum == 0;
+
+  int subSum = sum - node->data;
+  return hasPathSum(node->left, subSum) || hasPathSum(node->right, subSum);
+};
+
+void testHasPathSum(){
+  assert(hasPathSum(NULL, 0) == 1);
+  assert(hasPathSum(NULL, 1) == 0);
+  Node n = build123a();
+  assert(hasPathSum(n, 3) == 1);
+  assert(hasPathSum(n, 5) == 1);
+  assert(hasPathSum(n, 4) == 0);
+}
+
 int main()
 {
   testSize();
   testMaxDepth();
   testMinValue();
   testPrints();
+  testHasPathSum();
   return 0;
 }
