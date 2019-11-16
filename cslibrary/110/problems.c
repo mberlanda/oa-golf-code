@@ -105,8 +105,22 @@ int minValueRec(Node node)
   return node->data;
 }
 
+void testMinValue()
+{
+  Node n = build123a();
+  assert(minValue(n) == 1);
+  assert(minValueRec(n) == 1);
+  insert(n, 5);
+  assert(minValue(n) == 1);
+  assert(minValueRec(n) == 1);
+  insert(n, -3);
+  insert(n, 0);
+  assert(minValue(n) == -3);
+  assert(minValueRec(n) == -3);
+}
+
 /*
-  5. printTree(
+  5. printTree()
     The tree...
         4
        / \
@@ -124,19 +138,35 @@ void printTree(Node node){
   printTree(node->right);
 }
 
-void testMinValue()
+/*
+  5. printPostorder()
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    Produces the output "1 3 2 5 4"
+*/
+
+void printPostorder(Node node)
 {
-  Node n = build123a();
-  assert(minValue(n) == 1);
-  assert(minValueRec(n) == 1);
-  insert(n, 5);
-  assert(minValue(n) == 1);
-  assert(minValueRec(n) == 1);
-  insert(n, -3);
-  insert(n, 0);
-  assert(minValue(n) == -3);
-  assert(minValueRec(n) == -3);
+  if (node == NULL)
+    return;
+
+  printPostorder(node->left);
+  printPostorder(node->right);
+  printf("%d ", node->data);
+}
+
+void testPrints()
+{
+  Node n = NewNode(4);
+  n->left = build123a();
+  n->right = NewNode(5);
   printTree(n);
+  printf("\n");
+  printPostorder(n);
 }
 
 int main()
@@ -144,5 +174,6 @@ int main()
   testSize();
   testMaxDepth();
   testMinValue();
+  testPrints();
   return 0;
 }
