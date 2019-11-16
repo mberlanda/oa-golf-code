@@ -1,0 +1,15 @@
+name: Cs Library CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: build
+      run: cd cslibrary/110 && gcc problems.c -o problems
+    - name: run
+      run: ./cslibrary/110/problems
