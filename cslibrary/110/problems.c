@@ -55,8 +55,35 @@ void testSize()
   assert(size(build123c()) == 3);
 }
 
+// maxDepth()
+int max(int a, int b)
+{
+  if (a > b) return a;
+  return b;
+}
+
+int maxDepth(Node node)
+{
+  if (node == NULL) return 0;
+  int lDepth, rDepth;
+  lDepth = maxDepth(node->left);
+  rDepth = maxDepth(node->right);
+
+  return max(lDepth, rDepth) + 1;
+}
+
+void testMaxDepth()
+{
+  assert(maxDepth(NULL) == 0);
+  Node n = build123a();
+  assert(maxDepth(n) == 2);
+  insert(n, 5);
+  assert(maxDepth(n) == 3);
+}
+
 int main()
 {
   testSize();
+  testMaxDepth();
   return 0;
 }
