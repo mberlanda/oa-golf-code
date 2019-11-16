@@ -105,6 +105,25 @@ int minValueRec(Node node)
   return node->data;
 }
 
+/*
+  5. printTree(
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    Produces the output "1 2 3 4 5"
+*/
+
+void printTree(Node node){
+  if (node == NULL) return;
+
+  printTree(node->left);
+  printf("%d ", node->data);
+  printTree(node->right);
+}
+
 void testMinValue()
 {
   Node n = build123a();
@@ -117,6 +136,7 @@ void testMinValue()
   insert(n, 0);
   assert(minValue(n) == -3);
   assert(minValueRec(n) == -3);
+  printTree(n);
 }
 
 int main()
