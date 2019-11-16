@@ -1,5 +1,6 @@
 #include "node.h"
-
+#include <assert.h>
+#include <stdio.h>
 /*
 1. build123()
       2
@@ -35,13 +36,27 @@ Node build123b()
 
 Node build123c()
 {
-  Node root = NULL;
-  insert(root, 2);
-  insert(root, 1);
-  insert(root, 3);
+  Node root = insert(NULL, 2);
+  root = insert(root, 1);
+  root = insert(root, 3);
+  return root;
+}
+
+// 2. size()
+int size(Node node){
+  if (node == NULL) return 0;
+  return size(node->left) + 1 + size(node->right);
+}
+
+void testSize()
+{
+  assert(size(build123a()) == 3);
+  assert(size(build123b()) == 3);
+  assert(size(build123c()) == 3);
 }
 
 int main()
 {
+  testSize();
   return 0;
 }
