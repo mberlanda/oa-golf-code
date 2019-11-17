@@ -301,6 +301,26 @@ void testDoubleTree()
   printf("\n");
 }
 
+// 11. sameTree()
+int sameTree(Node a, Node b)
+{
+  if (a == NULL && b == NULL) return true;
+  if (a != NULL && b != NULL)
+    return a->data == b->data &&
+           sameTree(a->left, b->left) &&
+           sameTree(a->right, b->right);
+  return false;
+}
+
+void testSameTree()
+{
+  assert(sameTree(NULL, NULL) == 1);
+  assert(sameTree(NULL, NewNode(5)) == 0);
+  assert(sameTree(NewNode(5), NewNode(5)) == 1);
+  assert(sameTree(build123a(), NewNode(5)) == 0);
+  assert(sameTree(build123a(), build123b()) == 1);
+}
+
 int main()
 {
   testSize();
@@ -310,6 +330,7 @@ int main()
   testHasPathSum();
   testMirror();
   testDoubleTree();
+  testSameTree();
 
   return 0;
 }
