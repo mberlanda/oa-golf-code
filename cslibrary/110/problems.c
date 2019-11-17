@@ -391,7 +391,6 @@ int isBST2(Node n)
   return isBSTRec(n, INT_MIN, INT_MAX);
 }
 
-
 void testIsBST(){
   Node m = build123a();
   Node n = build123a();
@@ -406,6 +405,65 @@ void testIsBST(){
   assert(!isBST2(n));
 }
 
+// 15. TreeList()
+void join(Node a, Node b)
+{
+  a->right = b;
+  b->left = a;
+}
+
+Node append(Node a, Node b)
+{
+  Node aLeft, bLeft;
+  if (a == NULL) return b;
+  if (b == NULL) return a;
+
+  aLeft = a->left;
+  bLeft = b->left;
+
+  join(aLeft, b);
+  join(bLeft, a);
+
+  return a;
+}
+
+Node TreeList(Node root)
+{
+  if (root == NULL) return NULL;
+  Node aList, bList;
+
+  aList = TreeList(root->left);
+  bList = TreeList(root->right);
+
+  root->left = root;
+  root->right = root;
+
+  aList = append(aList, root);
+  bList = append(aList, bList);
+
+  return aList;
+}
+
+void testTreeList()
+{
+  Node n = NewNode(4);
+  n->left = build123a();
+  n->right = NewNode(5);
+
+  Node head = TreeList(n);
+  Node current = head;
+
+  while (current != NULL)
+  {
+    printf("%d ", current->data);
+    current = current->right;
+    if (current == head)
+      break;
+  }
+
+  printf("\n");
+}
+
 int main()
 {
   testSize();
@@ -418,6 +476,7 @@ int main()
   testSameTree();
   testCountTrees();
   testIsBST();
+  testTreeList();
 
   return 0;
 }
