@@ -261,6 +261,46 @@ void testMirror()
   printf("\n");
 }
 
+/*
+  10. doubleTree()
+    The tree...
+       2
+      / \
+     1   3
+    is changed to
+          2
+         / \
+        2   3
+       /   /
+      1   3
+     /
+    1
+*/
+
+void doubleTree(Node node)
+{
+  if (node == NULL) return;
+  doubleTree(node->left);
+  doubleTree(node->right);
+
+  Node n = NewNode(node->data);
+  n->left = node->left;
+  node->left = n;
+}
+
+void testDoubleTree()
+{
+  Node a = build123a();
+  Node b = build123a();
+  doubleTree(b);
+
+  assert(size(b) == 2*size(a));
+  printTree(a);
+  printf("\n");
+  printTree(b);
+  printf("\n");
+}
+
 int main()
 {
   testSize();
@@ -269,5 +309,7 @@ int main()
   testPrints();
   testHasPathSum();
   testMirror();
+  testDoubleTree();
+
   return 0;
 }
