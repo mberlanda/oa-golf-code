@@ -1,5 +1,6 @@
 #include "node.h"
 #include <assert.h>
+#include <limits.h>
 #include <stdio.h>
 
 #define MAX_TREE_SIZE 1000
@@ -374,6 +375,23 @@ int isBST(Node n)
   return true;
 }
 
+// 14. isBST2()
+int isBSTRec(Node n, int min, int max){
+  if (n == NULL)
+    return true;
+
+  if (n->data < min || n->data > max)
+    return (false);
+
+  return isBSTRec(n->left, min, n->data) && isBSTRec(n->right, n->data +1, max);
+};
+
+int isBST2(Node n)
+{
+  return isBSTRec(n, INT_MIN, INT_MAX);
+}
+
+
 void testIsBST(){
   Node m = build123a();
   Node n = build123a();
@@ -382,6 +400,10 @@ void testIsBST(){
   assert(isBST(NULL));
   assert(isBST(m));
   assert(!isBST(n));
+
+  assert(isBST2(NULL));
+  assert(isBST2(m));
+  assert(!isBST2(n));
 }
 
 int main()
