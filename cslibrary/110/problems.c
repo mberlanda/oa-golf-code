@@ -170,12 +170,12 @@ int hasPathSum(Node node, int sum){
 };
 
 void testHasPathSum(){
-  assert(hasPathSum(NULL, 0) == 1);
-  assert(hasPathSum(NULL, 1) == 0);
+  assert(hasPathSum(NULL, 0));
+  assert(!hasPathSum(NULL, 1));
   Node n = build123a();
-  assert(hasPathSum(n, 3) == 1);
-  assert(hasPathSum(n, 5) == 1);
-  assert(hasPathSum(n, 4) == 0);
+  assert(hasPathSum(n, 3));
+  assert(hasPathSum(n, 5));
+  assert(!hasPathSum(n, 4));
 }
 
 // 8. printPaths()
@@ -314,11 +314,11 @@ int sameTree(Node a, Node b)
 
 void testSameTree()
 {
-  assert(sameTree(NULL, NULL) == 1);
-  assert(sameTree(NULL, NewNode(5)) == 0);
-  assert(sameTree(NewNode(5), NewNode(5)) == 1);
-  assert(sameTree(build123a(), NewNode(5)) == 0);
-  assert(sameTree(build123a(), build123b()) == 1);
+  assert(sameTree(NULL, NULL));
+  assert(!sameTree(NULL, NewNode(5)));
+  assert(sameTree(NewNode(5), NewNode(5)));
+  assert(!sameTree(build123a(), NewNode(5)));
+  assert(sameTree(build123a(), build123b()));
 }
 
 // 12. countTrees()
@@ -346,6 +346,44 @@ void testCountTrees()
   assert(countTrees(4) == 14);
 }
 
+// 13. isBST()
+int maxValue(Node node)
+{
+  assert(node != NULL);
+  Node current = node;
+
+  while (current->right != NULL)
+  {
+    current = current->right;
+  }
+
+  return current->data;
+}
+
+int isBST(Node n)
+{
+  if (n == NULL) return true;
+  if (n->left != NULL && minValue(n->left) > n->data){
+    return false;
+  }
+  if (n->right != NULL && maxValue(n->right) <= n->data){
+    return false;
+  }
+
+  if (!isBST(n->left) || !isBST(n->right)) return false;
+  return true;
+}
+
+void testIsBST(){
+  Node m = build123a();
+  Node n = build123a();
+  n->left = NewNode(999);
+
+  assert(isBST(NULL));
+  assert(isBST(m));
+  assert(!isBST(n));
+}
+
 int main()
 {
   testSize();
@@ -357,6 +395,7 @@ int main()
   testDoubleTree();
   testSameTree();
   testCountTrees();
+  testIsBST();
 
   return 0;
 }
