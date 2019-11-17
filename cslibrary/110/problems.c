@@ -1,6 +1,8 @@
 #include "node.h"
 #include <assert.h>
 #include <stdio.h>
+
+#define MAX_TREE_SIZE 1000
 /*
 1. build123()
       2
@@ -159,16 +161,6 @@ void printPostorder(Node node)
   printf("%d ", node->data);
 }
 
-void testPrints()
-{
-  Node n = NewNode(4);
-  n->left = build123a();
-  n->right = NewNode(5);
-  printTree(n);
-  printf("\n");
-  printPostorder(n);
-}
-
 // 7. hasPathSum()
 int hasPathSum(Node node, int sum){
   if (node == NULL) return sum == 0;
@@ -184,6 +176,49 @@ void testHasPathSum(){
   assert(hasPathSum(n, 3) == 1);
   assert(hasPathSum(n, 5) == 1);
   assert(hasPathSum(n, 4) == 0);
+}
+
+// 8. printPaths()
+void printArray(int array[], int len)
+{
+  int i;
+  for(i = 0; i < len; i++){
+    printf("%d ", array[i]);
+  }
+  printf("\n");
+}
+
+void printPathsRecur(Node node, int path[], int pathLen)
+{
+  if (node == NULL)
+    return;
+  // printf("len: %d, data: %d\n", pathLen, node->data);
+  path[pathLen] = node->data;
+  pathLen++;
+
+  if (node->left == NULL && node->right == NULL){
+    printArray(path, pathLen);
+  } else {
+    printPathsRecur(node->left, path, pathLen);
+    printPathsRecur(node->right, path, pathLen);
+  }
+}
+
+void printPaths(Node node){
+  int path[MAX_TREE_SIZE];
+  printPathsRecur(node, path, 0);
+}
+
+void testPrints()
+{
+  Node n = NewNode(4);
+  n->left = build123a();
+  n->right = NewNode(5);
+  printTree(n);
+  printf("\n");
+  printPostorder(n);
+  printf("\n");
+  printPaths(n);
 }
 
 int main()
