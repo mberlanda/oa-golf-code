@@ -321,6 +321,31 @@ void testSameTree()
   assert(sameTree(build123a(), build123b()) == 1);
 }
 
+// 12. countTrees()
+int countTrees(int numKeys)
+{
+  if (numKeys <= 1) return 1;
+  int left, right, root;
+  int sum = 0;
+
+  for (root = 1; root <= numKeys; root++)
+  {
+    left = countTrees(root-1);
+    right = countTrees(numKeys - root);
+
+    sum += left * right;
+  }
+  return sum;
+}
+
+void testCountTrees()
+{
+  assert(countTrees(1) == 1);
+  assert(countTrees(2) == 2);
+  assert(countTrees(3) == 5);
+  assert(countTrees(4) == 14);
+}
+
 int main()
 {
   testSize();
@@ -331,6 +356,7 @@ int main()
   testMirror();
   testDoubleTree();
   testSameTree();
+  testCountTrees();
 
   return 0;
 }
