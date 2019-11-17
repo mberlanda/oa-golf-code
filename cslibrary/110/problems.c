@@ -221,6 +221,46 @@ void testPrints()
   printPaths(n);
 }
 
+/*
+  9. mirror()
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    is changed to
+        4
+       / \
+      5   2
+         / \
+        3   1
+*/
+
+void mirror(Node node)
+{
+  if (node == NULL) return;
+
+  mirror(node->left);
+  mirror(node->right);
+
+  Node lChild = node->left;
+  node->left = node->right;
+  node->right = lChild;
+}
+
+void testMirror()
+{
+  Node n = NewNode(4);
+  n->left = build123a();
+  n->right = NewNode(5);
+  printTree(n);
+  printf("\n");
+  mirror(n);
+  printTree(n);
+  printf("\n");
+}
+
 int main()
 {
   testSize();
@@ -228,5 +268,6 @@ int main()
   testMinValue();
   testPrints();
   testHasPathSum();
+  testMirror();
   return 0;
 }
