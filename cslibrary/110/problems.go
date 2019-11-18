@@ -113,6 +113,24 @@ func (n *Node) printTree() {
 	n.Right.printTree()
 }
 
+/* 6. printPostorder()
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    Produces the output "1 3 2 5 4"
+*/
+
+func (n *Node) printPostOrder() {
+	if (n == nil){ return }
+
+	n.Left.printPostOrder()
+	n.Right.printPostOrder()
+	fmt.Printf("%d ", n.Data)
+}
+
 func main(){
 	var n *Node = nil
 	var m *Node = build123()
@@ -131,5 +149,19 @@ func main(){
 		Left: m,
 		Right: NewNode(5),
 	}
+	fmt.Println("Test printTree:")
+	n.printTree()
+	fmt.Println()
+	m.printTree()
+	fmt.Println()
 	t.printTree()
+	fmt.Println()
+	// testPrintPostOrder
+	fmt.Println("Test printPostOrder:")
+	n.printPostOrder()
+	fmt.Println()
+	m.printPostOrder()
+	fmt.Println()
+	t.printPostOrder()
+	fmt.Println()
 }
