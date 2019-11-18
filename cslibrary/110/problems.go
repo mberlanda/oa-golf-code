@@ -65,12 +65,32 @@ func (n *Node) size() int {
 	return n.Left.size() + 1 + n.Right.size()
 }
 
-func testSize(){
-	var n *Node = nil
-	assert(n.size() == 0, "Empty node has size 0\n")
-	assert(build123().size() == 3, "build123 node has size 3\n")
+// 3. maxDepth()
+func max(a int, b int) int {
+	if (a>b) {
+		return a
+	}
+	return b
+}
+
+func (n *Node) maxDepth() int {
+	if (n == nil){
+		return 0
+	}
+	var lDepth, rDepth int
+	lDepth = n.Left.maxDepth()
+	rDepth = n.Right.maxDepth()
+
+	return max(lDepth, rDepth) + 1
 }
 
 func main(){
-	testSize()
+	var n *Node = nil
+	var m *Node = build123()
+	// testSize
+	assert(n.size() == 0, "Empty node has size 0\n")
+	assert(m.size() == 3, "build123 node has size 3\n")
+	// testMaxDepth
+	assert(n.maxDepth() == 0, "Empty node has maxDepth 0\n")
+	assert(m.maxDepth() == 2, "build123 node has maxDepth 2\n")
 }
