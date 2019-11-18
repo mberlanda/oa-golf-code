@@ -141,6 +141,28 @@ func (n *Node) hasPathSum(sum int) bool {
 	return n.Left.hasPathSum(sum - n.Data) || n.Right.hasPathSum(sum - n.Data)
 }
 
+// 8. printPaths()
+func printPathsRecur(n *Node, path []int, pathLen int) {
+	if (n == nil) { return }
+
+	newPath := make([]int, pathLen+1)
+	copy(newPath, path)
+	newPath[pathLen] = n.Data
+	pathLen += 1
+
+	if (n.Left == nil && n.Right == nil){
+		fmt.Printf("%v\n", newPath)
+	}
+
+	printPathsRecur(n.Left, newPath, pathLen)
+	printPathsRecur(n.Right, newPath, pathLen)
+}
+
+func (n *Node) printPaths() {
+	path := []int{}
+	printPathsRecur(n, path, 0)
+}
+
 func main(){
 	var n *Node
 	m := build123()
@@ -180,4 +202,9 @@ func main(){
 	assert(m.hasPathSum(3), "build123 node hasPathSum 3\n")
 	assert(m.hasPathSum(5), "build123 node hasPathSum 5\n")
 	assert(!m.hasPathSum(4), "build123 node not hasPathSum 4\n")
+	// testPrintPaths
+	fmt.Println("Test printPaths:")
+	n.printPaths()
+	m.printPaths()
+	t.printPaths()
 }
