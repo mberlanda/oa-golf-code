@@ -107,7 +107,6 @@ func (n *Node) minValue() *int {
     1   3
     Produces the output "1 2 3 4 5"
 */
-
 func (n *Node) printTree() {
 	if (n == nil){ return }
 
@@ -163,6 +162,41 @@ func (n *Node) printPaths() {
 	printPathsRecur(n, path, 0)
 }
 
+/* 9. mirror()
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    is changed to
+        4
+       / \
+      5   2
+         / \
+        3   1
+*/
+
+func (n *Node) mirror() {
+	if (n == nil) { return }
+
+	n.Left.mirror()
+	n.Right.mirror()
+
+	lChild := n.Left
+	n.Left = n.Right
+	n.Right = lChild
+}
+
+func treeArray(n *Node) []int{
+	if (n == nil) { return []int{} }
+
+	return append(
+		append(treeArray(n.Left), n.Data),
+		treeArray(n.Right)...
+	)
+}
+
 func main(){
 	var n *Node
 	m := build123()
@@ -207,4 +241,10 @@ func main(){
 	n.printPaths()
 	m.printPaths()
 	t.printPaths()
+	// testMirror
+	a := build123()
+	b := build123()
+	b.mirror()
+	assert(fmt.Sprintf("%v ", treeArray(a)) == "[1 2 3] ", "a node has the given elems\n")
+	assert(fmt.Sprintf("%v ", treeArray(b)) == "[3 2 1] ", "b node has the given elems\n")
 }
