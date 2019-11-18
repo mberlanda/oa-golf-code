@@ -234,6 +234,19 @@ func sameTree(n *Node, m *Node) bool {
 	return false
 }
 
+// 12. countTrees()
+func countTrees(numKeys int) int {
+	if (numKeys <= 1) { return 1 }
+	sum := 0
+
+	for i:= 1; i <= numKeys; i++ {
+		left := countTrees(i - 1)
+		right := countTrees(numKeys - i)
+
+		sum += left * right
+	}
+	return sum
+}
 func main(){
 	var n *Node
 	m := build123()
@@ -294,4 +307,10 @@ func main(){
 	assert(sameTree(nil, nil), "nil and nil are the same tree\n")
 	assert(!sameTree(nil, a), "nil and a are not the same tree\n")
 	assert(!sameTree(a, d), "a and d are not the same tree\n")
+	// testCountTrees
+	assert(countTrees(0) == 1, "1 tree our of 0 numKeys\n")
+	assert(countTrees(1) == 1, "1 tree our of 1 numKeys\n")
+	assert(countTrees(2) == 2, "2 trees our of 2 numKeys\n")
+	assert(countTrees(3) == 5, "5 trees our of 3 numKeys\n")
+	assert(countTrees(4) == 14, "4 trees our of 14 numKeys\n")
 }
