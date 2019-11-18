@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// https://www.hackerrank.com/challenges/balanced-brackets/problem
+
 char *readline();
 
 // Complete the isBalanced function below.
@@ -28,76 +30,53 @@ struct node {
 };
 typedef struct node* stack;
 
-stack push(stack s, char value) {
+void push(stack* s, int value) {
   stack n = (stack) malloc(sizeof(struct node));
   n->value = value;
-  n->next = s;
+  n->next = (*s);
 
-  return n;
+  (*s) = n;
 }
 
-char pop(stack *sRef)
+int pop(stack *sRef)
 {
   stack s = *sRef;
   // When expression starts with )] or }
-  if (*sRef == NULL) {
+  if (s == NULL) {
     return -1;
   };
-  char v = s->value;
+  int v = s->value;
   *sRef = s->next;
   free(s);
   return v;
 }
+int ssize (stack s) {
+  if (s == NULL) return 0;
+  return ssize(s->next) + 1;
+}
 
 char *isBalanced(char *s)
 {
-  char l;
+  int l, c;
   stack st = NULL;
-  int i = 0;
-  size_t len = strlen(s);
-  // printf("%d\n",i);
+  while (*s != '\0')
+  {
+    c = *s++;
+    if (c == '(' || c == '[' || c == '{'){
+      push(&st, c);
 
-  // printf("%ld\n", len);
-
-  while (*s) {
-    char c = *s++;
-    switch (c)
-    {
-    case '(':
-    case '[':
-    case '{':
-      st = push(st, c);
-    case ')':
-      if (st == NULL)
-        return "NO";
-      printf("%c", st->value);
+    } else {
       l = pop(&st);
-      printf("coucou");
-      printf("%d\n", l);
-
-      if (l != '(')
-        printf("%d", l);
+      if ((c == ')' && l != '(') ||
+          (c == ']' && l != '[') ||
+          (c == '}' && l != '{')) {
         return "NO";
-    case ']':
-      if (st == NULL)
-        return "NO";
-      printf("roro");
-      l = pop(&st);
-      if (l != '[')
-        return "NO";
-    case '}':
-      if (st == NULL)
-        return "NO";
-      l = pop(&st);
-      if (l != '{')
-        return "NO";
-
-    default:
-      printf("out");
-      printf("Not match: %c", c);
+      }
     }
   }
-  if (st == NULL) { return "YES"; }
+  if (st == NULL){
+    return "YES";
+  }
   return "NO";
 }
 

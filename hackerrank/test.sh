@@ -31,7 +31,6 @@ function main(){
     local expected=$(trim $(cat $output_file))
 
     if [[ ! -z ${OUTPUT_PATH+x} ]]; then
-      echo $result
       result=$(trim $(cat $OUTPUT_PATH))
     fi
 
