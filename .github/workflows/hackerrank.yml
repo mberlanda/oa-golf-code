@@ -10,4 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Run Tree Height solutions
-      run: ./hackerrank/test.sh "data_structures/trees/tree-height"
+      run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-height
+    - name: Run Tree Level Order solutions
+      run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-level-order

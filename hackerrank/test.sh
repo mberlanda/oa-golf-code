@@ -15,6 +15,10 @@ function load_inputs(){
   done
 }
 
+function trim(){
+  echo $(echo $1 | sed -e 's/^[[:space:]]*//')
+}
+
 function main(){
     compile
     load_inputs
@@ -23,11 +27,15 @@ function main(){
     local input_file="$TESTCASES_DIR/input/$input"
     local output=${input/input/output}
     local output_file="$TESTCASES_DIR/output/$output"
-    local result=$(cat ${input_file} | ./$EXCERCISE)
-    if [[ $result == $(cat $output_file) ]]; then
+    local result=$(trim $(cat ${input_file} | ./$EXCERCISE))
+    local expected=$(trim $(cat $output_file))
+    if [[ $result == $expected ]]; then
       echo "${input} passed" 
     else
       echo "${input} did not pass"
+      echo "Expected: ${expected}"
+      echo "Got: ${result}"
+
       exit 1
     fi
     done
