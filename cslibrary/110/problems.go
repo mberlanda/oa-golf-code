@@ -84,6 +84,18 @@ func (n *Node) maxDepth() int {
 	return max(lDepth, rDepth) + 1
 }
 
+// 4. minValue()
+func (n *Node) minValue() *int {
+	if (n == nil){
+		return nil
+	}
+	if (n.Left != nil){
+		return n.Left.minValue()
+	}
+	return &n.Data
+}
+
+
 func main(){
 	var n *Node = nil
 	var m *Node = build123()
@@ -93,4 +105,7 @@ func main(){
 	// testMaxDepth
 	assert(n.maxDepth() == 0, "Empty node has maxDepth 0\n")
 	assert(m.maxDepth() == 2, "build123 node has maxDepth 2\n")
+	// testMinValue
+	assert(n.minValue() == nil, "Empty node has minValue nil\n")
+	assert(*m.minValue() == 1, "build123 node has minValue 1\n")
 }
