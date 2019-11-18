@@ -275,6 +275,21 @@ func isBST(n *Node) bool {
 	return true
 }
 
+// 14. isBST2()
+func isBSTRec(n *Node, min int, max int) bool {
+	if (n == nil) { return true }
+	if (n.Data < min || n.Data > max) { return false }
+
+	return isBSTRec(n.Left, min, n.Data) && isBSTRec(n.Right, n.Data+1, max)
+}
+
+func isBST2(n *Node) bool {
+	// https://stackoverflow.com/a/6878625
+	maxInt := int(^uint(0) >> 1)
+	minInt := -maxInt - 1
+	return isBSTRec(n, minInt, maxInt)
+}
+
 func main(){
 	var n *Node
 	m := build123()
@@ -347,6 +362,9 @@ func main(){
 	y.Left = NewNode(999)
 
 	assert(isBST(nil), "nil isBST\n")
+	assert(isBST2(nil), "nil isBST2\n")
 	assert(isBST(x), "x isBST\n")
+	assert(isBST2(x), "x isBST2\n")
 	assert(!isBST(y), "y !isBST\n")
+	assert(!isBST2(y), "y !isBST2\n")
 }
