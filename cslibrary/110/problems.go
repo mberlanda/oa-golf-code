@@ -221,7 +221,17 @@ func (n *Node) doubleTree() {
 	m := NewNode(n.Data)
 	m.Left = n.Left
 	n.Left = m
+}
 
+// 11. sameTree()
+func sameTree(n *Node, m *Node) bool {
+	if (n == nil && m == nil) { return true }
+	if (n != nil && m != nil) {
+		return n.Data == m.Data &&
+			   sameTree(n.Left, m.Left) &&
+			   sameTree(n.Right, m.Right)
+	}
+	return false
 }
 
 func main(){
@@ -279,4 +289,9 @@ func main(){
 	assert(fmt.Sprintf("%v ", treeArray(d)) == "[1 2 3] ", "d node has the given elems\n")
 	d.doubleTree()
 	assert(fmt.Sprintf("%v ", treeArray(d)) == "[1 1 2 2 3 3] ", "d node has the given elems after duplication\n")
+	// testSameTree
+	assert(sameTree(a, a), "a and m are the same tree\n")
+	assert(sameTree(nil, nil), "nil and nil are the same tree\n")
+	assert(!sameTree(nil, a), "nil and a are not the same tree\n")
+	assert(!sameTree(a, d), "a and d are not the same tree\n")
 }
