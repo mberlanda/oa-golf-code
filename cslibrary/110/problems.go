@@ -14,12 +14,14 @@ func assert(t bool, msg string){
 	}
 }
 
+// Node basic data structure
 type Node struct {
 	Data int
 	Left *Node
 	Right *Node
 }
 
+// NewNode create a new node reference
 func NewNode(data int) *Node {
 	return &Node{
 		Data: data,
@@ -28,6 +30,7 @@ func NewNode(data int) *Node {
 	}
 }
 
+// Insert add data into a BST
 func (n *Node) Insert(data int) *Node {
 	if (n == nil) {
 		return NewNode(data)
@@ -48,7 +51,7 @@ func (n *Node) Insert(data int) *Node {
    1     3
 */
 func build123() *Node {
-	var root *Node = nil
+	var root *Node
 
 	root = root.Insert(2)
 	root = root.Insert(1)
@@ -139,8 +142,8 @@ func (n *Node) hasPathSum(sum int) bool {
 }
 
 func main(){
-	var n *Node = nil
-	var m *Node = build123()
+	var n *Node
+	m := build123()
 	// testSize
 	assert(n.size() == 0, "Empty node has size 0\n")
 	assert(m.size() == 3, "build123 node has size 3\n")
