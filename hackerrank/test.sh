@@ -9,7 +9,7 @@ function compile() {
 }
 
 function load_inputs(){
-  for file in "${TESTCASES_DIR}/input/*"
+  for file in $(find "${TESTCASES_DIR}/input" -type f)
   do
     TESTCASES+=(`basename $file`)
   done
@@ -29,8 +29,13 @@ function main(){
     local output_file="$TESTCASES_DIR/output/$output"
     local result=$(trim $(cat ${input_file} | ./$EXCERCISE))
     local expected=$(trim $(cat $output_file))
+
+    if [[ ! -z ${OUTPUT_PATH+x} ]]; then
+      result=$(trim $(cat $OUTPUT_PATH))
+    fi
+
     if [[ $result == $expected ]]; then
-      echo "${input} passed" 
+      echo "${input} passed"
     else
       echo "${input} did not pass"
       echo "Expected: ${expected}"

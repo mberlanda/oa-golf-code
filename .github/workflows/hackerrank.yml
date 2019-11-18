@@ -13,3 +13,7 @@ jobs:
       run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-height
     - name: Run Tree Level Order solutions
       run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-level-order
+    - name: Run Balanced Brackets solutions
+      run: ./hackerrank/test.sh ./hackerrank/data_structures/stacks/balanced-brackets
+      env:
+        OUTPUT_PATH: foo.txt
