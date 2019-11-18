@@ -197,6 +197,33 @@ func treeArray(n *Node) []int{
 	)
 }
 
+/* 10. doubleTree()
+    The tree...
+       2
+      / \
+     1   3
+    is changed to
+          2
+         / \
+        2   3
+       /   /
+      1   3
+     /
+    1
+*/
+
+func (n *Node) doubleTree() {
+	if (n == nil) { return }
+
+	n.Left.doubleTree()
+	n.Right.doubleTree()
+
+	m := NewNode(n.Data)
+	m.Left = n.Left
+	n.Left = m
+
+}
+
 func main(){
 	var n *Node
 	m := build123()
@@ -247,4 +274,9 @@ func main(){
 	b.mirror()
 	assert(fmt.Sprintf("%v ", treeArray(a)) == "[1 2 3] ", "a node has the given elems\n")
 	assert(fmt.Sprintf("%v ", treeArray(b)) == "[3 2 1] ", "b node has the given elems\n")
+	// testDoubleTree
+	d := build123()
+	assert(fmt.Sprintf("%v ", treeArray(d)) == "[1 2 3] ", "d node has the given elems\n")
+	d.doubleTree()
+	assert(fmt.Sprintf("%v ", treeArray(d)) == "[1 1 2 2 3 3] ", "d node has the given elems after duplication\n")
 }
