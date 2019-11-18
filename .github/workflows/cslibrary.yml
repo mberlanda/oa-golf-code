@@ -9,7 +9,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: build
+    - name: Build C solutions
       run: cd cslibrary/110 && gcc problems.c -o problems
-    - name: run
+    - name: Run C solutions
       run: ./cslibrary/110/problems
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
+    - name: Run Golang solutions
+      run: go run ./cslibrary/110/problems.go
