@@ -247,6 +247,34 @@ func countTrees(numKeys int) int {
 	}
 	return sum
 }
+
+// 13. isBST()
+func (n *Node) maxValue() *int {
+	if (n == nil){
+		return nil
+	}
+	if (n.Right != nil){
+		return n.Right.maxValue()
+	}
+	return &n.Data
+}
+
+func isBST(n *Node) bool {
+	if (n == nil) { return true }
+	min := n.minValue()
+	max := n.maxValue()
+
+	if (min == nil || max == nil) {
+		return false
+	}
+
+	if (n.Left != nil && *min > n.Data) { return false }
+	if (n.Right != nil && *max <= n.Data) { return false }
+	if (!isBST(n.Left) || !isBST(n.Right)) { return false }
+
+	return true
+}
+
 func main(){
 	var n *Node
 	m := build123()
@@ -313,4 +341,12 @@ func main(){
 	assert(countTrees(2) == 2, "2 trees our of 2 numKeys\n")
 	assert(countTrees(3) == 5, "5 trees our of 3 numKeys\n")
 	assert(countTrees(4) == 14, "4 trees our of 14 numKeys\n")
+	// testIsBST
+	x := build123()
+	y := build123()
+	y.Left = NewNode(999)
+
+	assert(isBST(nil), "nil isBST\n")
+	assert(isBST(x), "x isBST\n")
+	assert(!isBST(y), "y !isBST\n")
 }
