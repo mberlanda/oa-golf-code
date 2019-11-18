@@ -95,6 +95,23 @@ func (n *Node) minValue() *int {
 	return &n.Data
 }
 
+/* 5. printTree()
+    The tree...
+        4
+       / \
+      2   5
+     / \
+    1   3
+    Produces the output "1 2 3 4 5"
+*/
+
+func (n *Node) printTree() {
+	if (n == nil){ return }
+
+	n.Left.printTree()
+	fmt.Printf("%d ", n.Data)
+	n.Right.printTree()
+}
 
 func main(){
 	var n *Node = nil
@@ -108,4 +125,11 @@ func main(){
 	// testMinValue
 	assert(n.minValue() == nil, "Empty node has minValue nil\n")
 	assert(*m.minValue() == 1, "build123 node has minValue 1\n")
+	// testPrintTree
+	t := &Node{
+		Data: 4,
+		Left: m,
+		Right: NewNode(5),
+	}
+	t.printTree()
 }
