@@ -131,6 +131,13 @@ func (n *Node) printPostOrder() {
 	fmt.Printf("%d ", n.Data)
 }
 
+// 7. hasPathSum()
+func (n *Node) hasPathSum(sum int) bool {
+	if (n == nil){ return sum == 0 }
+
+	return n.Left.hasPathSum(sum - n.Data) || n.Right.hasPathSum(sum - n.Data)
+}
+
 func main(){
 	var n *Node = nil
 	var m *Node = build123()
@@ -164,4 +171,10 @@ func main(){
 	fmt.Println()
 	t.printPostOrder()
 	fmt.Println()
+	// testHasPathSum
+	assert(n.hasPathSum(0), "Empty node hasPathSum 0\n")
+	assert(!n.hasPathSum(1), "Empty node not hasPathSum 1\n")
+	assert(m.hasPathSum(3), "build123 node hasPathSum 3\n")
+	assert(m.hasPathSum(5), "build123 node hasPathSum 5\n")
+	assert(!m.hasPathSum(4), "build123 node not hasPathSum 4\n")
 }
