@@ -24,3 +24,10 @@ jobs:
        rm foo.txt
       env:
         OUTPUT_PATH: foo.txt
+    - name: Run Trie Contacts solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/trie/contacts
+       rm foo.txt
+      env:
+        EXT: go
+        OUTPUT_PATH: foo.txt
