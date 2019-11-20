@@ -9,11 +9,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
     - name: Run Tree Height solutions
       run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-height
     - name: Run Tree Level Order solutions
       run: ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-level-order
     - name: Run Balanced Brackets solutions
-      run: ./hackerrank/test.sh ./hackerrank/data_structures/stacks/balanced-brackets
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/balanced-brackets
+       rm foo.txt
       env:
         OUTPUT_PATH: foo.txt
