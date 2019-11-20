@@ -3,9 +3,26 @@
 export EXCERCISE=$1
 export TESTCASES_DIR="${EXCERCISE}-testcases"
 export TESTCASES=()
+export EXT="${EXT:-c}"
 
 function compile() {
-  gcc "${EXCERCISE}.c" -o $EXCERCISE
+  case "${EXT}" in
+  "c")
+    gcc "${EXCERCISE}.c" -o $EXCERCISE
+    ;;
+  "go")
+    dir=$(dirname ${EXCERCISE})
+    bn=$(basename ${EXCERCISE})
+
+    cd $dir
+    go build "${bn}.go"
+    cd -
+    ;;
+  *)
+    echo "Don't know how to compile ${EXT} extension"
+    exit 1
+    ;;
+  esac
 }
 
 function load_inputs(){
