@@ -11,7 +11,7 @@ function compile() {
     gcc "${EXCERCISE}.c" -o $EXCERCISE
     ;;
   "cpp")
-    gcc "${EXCERCISE}.cc" -o $EXCERCISE
+    g++ "${EXCERCISE}.cc" -lm -o $EXCERCISE
     ;;
   "go")
     dir=$(dirname ${EXCERCISE})
