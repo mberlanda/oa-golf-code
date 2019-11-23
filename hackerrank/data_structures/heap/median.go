@@ -11,12 +11,21 @@ import (
 
 /* https://www.hackerrank.com/challenges/find-the-running-median/problem
  * Complete the runningMedian function below.
+ * TODO: this could be solved following https://coder.today/tech/2017-10-13_fast-priority-queues-in-golang-hierarchical-heap/
  */
 
 type heap struct {
-	Value int32
-	Size  int32
-	Next  *heap
+	Value    int32
+	Size     int32
+	Previous *heap
+	Next     *heap
+}
+
+func (h *heap) swap(j *heap) {
+	tmp := h.Previous
+	h.Next = j
+	j.Previous = tmp
+	j.Next = h
 }
 
 func emptyHeap() *heap {

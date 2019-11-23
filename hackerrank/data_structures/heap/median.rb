@@ -3,6 +3,7 @@
 #
 # Complete the runningMedian function below.
 # This solution does not pass all test cases
+# This could be solved implementing ProrityQueue as in https://www.brianstorti.com/implementing-a-priority-queue-in-ruby/
 #
 
 class Heap

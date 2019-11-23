@@ -48,7 +48,7 @@ vector<double> runningMedian(vector<int> a)
     {
       median = (double)maxheap.top();
     }
-    res.push_back(median);
+    res.push_back(median * 1.0);
   }
   return res;
 }
