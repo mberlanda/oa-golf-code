@@ -10,6 +10,9 @@ function compile() {
   "c")
     gcc "${EXCERCISE}.c" -o $EXCERCISE
     ;;
+  "cpp")
+    gcc "${EXCERCISE}.cc" -o $EXCERCISE
+    ;;
   "go")
     dir=$(dirname ${EXCERCISE})
     bn=$(basename ${EXCERCISE})
