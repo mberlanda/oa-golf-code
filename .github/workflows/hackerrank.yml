@@ -31,3 +31,10 @@ jobs:
       env:
         EXT: go
         OUTPUT_PATH: foo.txt
+    - name: Run Heap Median cpp solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/heap/median
+       rm foo.txt
+      env:
+        EXT: cpp
+        OUTPUT_PATH: foo.txt
