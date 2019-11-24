@@ -6,6 +6,8 @@ using namespace std;
  * Complete the runningMedian function below.
  * https://www.hackerrank.com/challenges/find-the-running-median/forum/comments/456990
  */
+#define FIXED_FLOAT(x) std::fixed << std::setprecision(1) << (x)
+
 vector<double> runningMedian(vector<int> a)
 {
   vector<double> res;
@@ -75,7 +77,7 @@ int main()
 
   for (int result_itr = 0; result_itr < result.size(); result_itr++)
   {
-    fout << result[result_itr];
+    fout << FIXED_FLOAT(result[result_itr]);
 
     if (result_itr != result.size() - 1)
     {
