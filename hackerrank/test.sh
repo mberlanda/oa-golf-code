@@ -36,7 +36,7 @@ function load_inputs(){
 }
 
 function trim(){
-  echo $(echo $1 | sed -e 's/^[[:space:]]*//')
+  echo $(echo $1 | sed -e 's/^[[:space:]]*//' | tr -d '\r')
 }
 
 function main(){
