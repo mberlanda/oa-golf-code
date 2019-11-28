@@ -38,3 +38,8 @@ jobs:
       env:
         EXT: cpp
         OUTPUT_PATH: foo.txt
+    - name: Run Stacks Maximum Element solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/maximum-element
+      env:
+        EXT: go
