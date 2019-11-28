@@ -57,3 +57,10 @@ jobs:
       env:
         EXT: go
         OUTPUT_PATH: foo.txt
+    - name: Run Two Stacks solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/two-stacks
+       rm foo.txt
+      env:
+        EXT: cpp
+        OUTPUT_PATH: foo.txt
