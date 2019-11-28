@@ -43,3 +43,11 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/stacks/maximum-element
       env:
         EXT: go
+    - name: Run Equal Stacks solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/equal-stacks
+       rm foo.txt
+      env:
+        EXT: go
+        OUTPUT_PATH: foo.txt
+
