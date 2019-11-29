@@ -14,6 +14,32 @@ import (
  * https://www.hackerrank.com/challenges/game-of-two-stacks/problem
  */
 
+type stack struct {
+	Elements []int32
+	Size     int
+}
+
+func (s *stack) Push(x int32) {
+	s.Elements = append(s.Elements, x)
+	s.Size++
+}
+
+func (s *stack) Pop() int32 {
+	el := s.Elements[s.Size-1]
+	s.Elements = s.Elements[:s.Size-1]
+	s.Size--
+	return el
+}
+
+func (s *stack) Top() int32 {
+	return s.Elements[s.Size-1]
+}
+
+func (s *stack) Empty() bool {
+	return s.Size == 0
+}
+
+/*
 func max(x, y int32) int32 {
 	if x > y {
 		return x
@@ -21,38 +47,77 @@ func max(x, y int32) int32 {
 	return y
 }
 
-func recurTwoStacks(m, sum, steps, x int32, a, b []int32) int32 {
+func recurTwoStacks(m, sum, steps, x int32, a, b []int32, asize, bsize int) int32 {
 	if sum+x > m {
 		return steps
 	}
-	if len(a) > 0 && len(b) > 0 {
+	if asize > 0 && bsize > 0 {
 		return max(
-			recurTwoStacks(m, sum+x, steps+1, a[0], a[1:], b),
-			recurTwoStacks(m, sum+x, steps+1, b[0], b[1:], a),
+			recurTwoStacks(m, sum+x, steps+1, a[0], a[1:], b, asize-1, bsize),
+			recurTwoStacks(m, sum+x, steps+1, b[0], b[1:], a, asize, bsize-1),
 		)
 	}
-	if len(a) > 0 {
-		return recurTwoStacks(m, sum+x, steps+1, a[0], a[1:], b)
+	if asize > 0 {
+		return recurTwoStacks(m, sum+x, steps+1, a[0], a[1:], b, asize-1, 0)
 	}
-	if len(b) > 0 {
-		return recurTwoStacks(m, sum+x, steps+1, b[0], b[1:], a)
+	if bsize > 0 {
+		return recurTwoStacks(m, sum+x, steps+1, b[0], b[1:], a, 0, bsize-1)
 	}
 
 	return steps
+}
+*/
+
+func coucou(sum, x int32, acc *stack) int32 {
+	if sum <= x || acc.Empty() {
+		return sum
+	}
+	sum = sum - acc.Pop()
+	return coucou(sum, x, acc)
 }
 
 func twoStacks(x int32, a []int32, b []int32) int32 {
 	/*
 	 * Write your code here.
 	 */
-	var sum, steps int32
-	sum = 0
-	steps = 0
+	/*
+		 var sum, steps int32
+		sum = 0
+		steps = 0
+		asize := len(a)
+		bsize := len(b)
 
-	return max(
-		recurTwoStacks(x, sum, steps, a[0], a[1:], b),
-		recurTwoStacks(x, sum, steps, b[0], b[1:], a),
-	)
+		return max(
+			recurTwoStacks(x, sum, steps, a[0], a[1:], b, asize-1, bsize),
+			recurTwoStacks(x, sum, steps, b[0], b[1:], a, asize, bsize-1),
+		)
+	*/
+	var sum int32
+	sum = 0
+	acc := stack{
+		Elements: []int32{},
+		Size:     0,
+	}
+
+	for _, el := range a {
+		if sum+el > x {
+			break
+		}
+		sum = sum + el
+		acc.Push(el)
+	}
+
+	count := acc.Size
+	for j, el := range b {
+		if acc.Size < 0 {
+			break
+		}
+		sum = coucou(sum+el, x, &acc)
+		if sum <= x && j+acc.Size >= count {
+			count = j + acc.Size + 1
+		}
+	}
+	return int32(count)
 }
 
 func main() {
