@@ -64,3 +64,10 @@ jobs:
       env:
         EXT: cpp
         OUTPUT_PATH: foo.txt
+    - name: Run Largest Rectangle solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/largest-rectangle
+       rm foo.txt
+      env:
+        EXT: go
+        OUTPUT_PATH: foo.txt
