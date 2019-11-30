@@ -78,3 +78,8 @@ jobs:
       env:
         EXT: cpp
         OUTPUT_PATH: foo.txt
+    - name: Run Text Editor solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/text-editor
+      env:
+        EXT: cpp
