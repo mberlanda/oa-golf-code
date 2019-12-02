@@ -100,3 +100,8 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-postorder-traversal
       env:
         EXT: cpp
+    - name: Run Tree Inorder Traversal solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-inorder-traversal
+      env:
+        EXT: cpp
