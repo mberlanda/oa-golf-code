@@ -83,3 +83,10 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/stacks/text-editor
       env:
         EXT: cpp
+    - name: Run Poisonous Plants solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/stacks/poisonous-plants
+       rm foo.txt
+      env:
+        EXT: cpp
+        OUTPUT_PATH: foo.txt
