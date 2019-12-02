@@ -90,3 +90,8 @@ jobs:
       env:
         EXT: cpp
         OUTPUT_PATH: foo.txt
+    - name: Run Tree Preorder Traversal solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-preorder-traversal
+      env:
+        EXT: cpp
