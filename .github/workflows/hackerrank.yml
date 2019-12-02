@@ -105,3 +105,8 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-inorder-traversal
       env:
         EXT: cpp
+    - name: Run Tree Top View solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-top-view
+      env:
+        EXT: cpp
