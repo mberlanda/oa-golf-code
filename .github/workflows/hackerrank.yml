@@ -115,3 +115,8 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/trees/tree-huffman-decoding
       env:
         EXT: cpp
+    - name: Run Heap Qheap1 solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/heap/qheap1
+      env:
+        EXT: cpp
