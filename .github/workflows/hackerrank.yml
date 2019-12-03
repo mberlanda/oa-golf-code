@@ -120,3 +120,10 @@ jobs:
        ./hackerrank/test.sh ./hackerrank/data_structures/heap/qheap1
       env:
         EXT: cpp
+    - name: Run Heap Jesse Cookies solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/heap/jesse-cookies
+       rm foo.txt
+      env:
+        EXT: cpp
+        OUTPUT_PATH: foo.txt
