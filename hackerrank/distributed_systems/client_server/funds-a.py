@@ -13,19 +13,19 @@ def read_string_from_socket(connection):
 parents = {}
 
 def find_path(n):
-    path = [n]
-    while parents[n]:
-        path.append(parents[n])
+    stack = [n]
+    while n in parents:
+        stack.append(parents[n])
         n = parents[n]
-    return path
+    return stack
 
 def compute_distance(a, b):
     path_a = find_path(a)
     path_b = find_path(b)
 
     while path_a and path_b and path_a[-1] == path_b[-1]:
-        del path_a[-1]
-        del path_b[-1]
+        path_a.pop()
+        path_b.pop()
 
     return len(path_a) + len(path_b) + 1
 
@@ -36,7 +36,7 @@ def init_server():
     sys.stdout.flush()
     with open("training.txt", "r") as f:
         count = int(f.readline())
-        for _ in range(count): 
+        for _ in range(count):
             l = f.readline().strip()
             if l != "":
                 x, y = map(int, l.split(","))
@@ -48,7 +48,7 @@ def init_server():
 def process_client_connection(connection):
 
     while True:
-        # read message 
+        # read message
         message = read_string_from_socket(connection)
 
         print ("Message received = ", message)
@@ -58,7 +58,7 @@ def process_client_connection(connection):
         else:
             a, b, q = map(int, message.split(","))
             result = "YES" if compute_distance(a, b) <= q else "NO"
-            write_string_to_socket(connection, message)
+            write_string_to_socket(connection, result)
 
 # # Main structure
 import socket
@@ -79,7 +79,7 @@ def write_string_to_socket(connection, message):
 
 def main():
     init_server()
-    
+
     sock = socket.socket(socket.AF_UNIX)
     sock.bind(SERVER_SOCKET_PATH)
     sock.listen(BACKLOG)
