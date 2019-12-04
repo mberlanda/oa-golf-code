@@ -127,3 +127,10 @@ jobs:
       env:
         EXT: cpp
         OUTPUT_PATH: foo.txt
+    - name: Run Heap Minimum Average solutions
+      run: |
+       ./hackerrank/test.sh ./hackerrank/data_structures/heap/minimum-average
+       rm foo.txt
+      env:
+        EXT: cpp
+        OUTPUT_PATH: foo.txt
